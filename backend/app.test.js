@@ -30,5 +30,16 @@ it("app updates correctly", function() {
     expect(testApp.get(2).question).to.equal('3')
     expect(testApp.get(2).answers).to.have.members(['c', 'b'])
   });
+it("writes to given filepath", function() {
+  let testFileWriteApp = new QuizApp("json\//testQuestions.json")
+  expect(testFileWriteApp.questions.length).to.equal(0)
+  testFileWriteApp.post("Hi?", ["a", "b"])
+  expect(testFileWriteApp.questions.length).to.equal(1)
+  let testFileReadApp = new QuizApp("json\//testQuestions.json")
+  expect(testFileReadApp.questions.length).to.equal(1)
+  testFileReadApp.delete(1)
+  let testFileClearedApp = new QuizApp("json\//testQuestions.json")
+  expect(testFileClearedApp.questions.length).to.equal(0)
+});
 
 });
