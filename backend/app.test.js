@@ -41,5 +41,21 @@ it("writes to given filepath", function() {
   let testFileClearedApp = new QuizApp("json\//testQuestions.json")
   expect(testFileClearedApp.questions.length).to.equal(0)
 });
+it("rejects empty messages", function() {
+  let testApp = new QuizApp()
+  expect(testApp.post('')).to.deep.equal([])
+});
+it("no messages if no messages are sent", function() {
+  let testApp = new QuizApp()
+  expect(testApp.getAll()).to.deep.equal([])
+});
+it("rejects false update", function() {
+  let testApp = new QuizApp()
+  expect(testApp.update(0, "")).to.deep.equal([])
+});
+it("errors if no message to delete", function() {
+  let testApp = new QuizApp()
+  expect(testApp.delete(0)).to.deep.equal("Massage: No question with that id")
+});
 
 });

@@ -34,33 +34,49 @@ class QuizApp {
     
   // C
   post(question, answers) {
-    let item = {
-      id: newId(this.questions),
-      question: question,
-      answers: answers,
-      date: new Date(),
-    };
-    this.questions.push(item);
-    this.writeToJson();
-    return this.questions;
+    if(question && answers){
+      this.questions.push({
+        id: newId(this.questions),
+        question: question,
+        answers: answers,
+        date: new Date(),
+      });
+      this.writeToJson();
+      return this.questions;
+    } else if(!question && !answers){
+      return [];
+    }
   }
   // R
   get(id) {
     return this.questions.filter((question) => question.id === id)[0];
   }
+  getAll() {
+    return this.questions;
+  }
   // U
   update(id, newQuestion, newAnswers) {
     let index = this.questions.map((question) => question.id).indexOf(id);
-    this.questions[index].question = newQuestion;
-    this.questions[index].answers = newAnswers;
-    this.writeToJson();
-    return this.questions;
+    if(index > -1){
+      this.questions[index].question = newQuestion;
+      this.questions[index].answers = newAnswers;
+      this.writeToJson();
+      return this.questions;
+    }
+    else {
+      return [];
+    }
   }
   // D
   delete(id) {
-    this.questions = this.questions.filter((question) => question.id != id);
-    this.writeToJson();
-    return this.questions;
+    let index = this.questions.map((question) => question.id).indexOf(id);
+    if(index > -1){
+      this.questions.splice(index, 1);
+      this.writeToJson();
+      return this.questions;
+    } else {
+      return "Massage: No question with that id";
+    }
   }
 }
 
