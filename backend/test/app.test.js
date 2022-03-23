@@ -3,9 +3,14 @@ const expect = require('chai').expect;
 const app = require('../app.js');
 
 describe("Hello World test", function() {
-    it("Hello World test", function() {
-        request(app).get('/').expect(200).end((err, res) => {
-        expect(res.text).to.equal("Hello World")
+    it.only("gets from backend question", function(done) {
+        const res = request(app).get('/')
+        res.expect(200).end(function(err, res) {
+            if (err) {
+                return done(err);
+            }
+        expect(res.body.length).to.equal(1);
+        done();
         })
     })
 })
