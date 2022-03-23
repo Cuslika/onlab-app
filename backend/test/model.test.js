@@ -1,10 +1,10 @@
-import { expect } from "chai";
-import QuizApp from './app.js'
+const expect = require ('chai').expect;
+const QuizApp = require ('../lib/model.js');
 
 describe("app", function() {
   let testApp;
   beforeEach(()=>{
-    testApp = new QuizApp
+    testApp = new QuizApp();
     testApp.post('world?', ['hi', 'world'])
   })
   it("id's are always unique", function() {
